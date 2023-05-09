@@ -76,6 +76,7 @@ def call(Map config = [:]) {
             sh "type deployment.yaml"
             sh "type service.yaml"
             sh "type configmap.yaml"
+            }
         } else {
             configFileProvider([configFile(fileId: 'kube-deployment-yaml', targetLocation: './deployment.yaml', variable: 'deployment'), configFile(fileId: 'kube-service-yaml', targetLocation: './service.yaml', variable: 'service'), configFile(fileId: 'kube-configmap-yaml', targetLocation: './configmap.yaml', variable: 'configmap')]) {
             def matchers = ~ /.*-(frontend|fe)/
@@ -132,6 +133,6 @@ def call(Map config = [:]) {
             bat "type deployment.yaml"
             bat "type service.yaml"
             bat "type configmap.yaml"
+           }
         }
-    }
 }
