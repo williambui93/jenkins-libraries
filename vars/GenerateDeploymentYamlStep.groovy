@@ -46,7 +46,7 @@ def call(Map config = [:]) {
             deployment.spec.template.spec.containers[0].volumeMounts[0].mountPath = (config.configContainerPath ? config.configContainerPath: (config.type == 'fe' ? "/usr/share/nginx/html/assets/config/${config.configMapFileName}": "/app/${config.configMapFileName}"))
             deployment.spec.template.spec.containers[0].volumeMounts[0].subPath = config.configMapFileName
 
-            sh "del deployment.yaml"
+            sh "rm deployment.yaml"
             writeYaml(data: deployment, file: "deployment.yaml")
 
             // Service
@@ -58,7 +58,7 @@ def call(Map config = [:]) {
             service.spec.ports[0].targetPort = config.targetPort
             service.spec.type = config.serviceType
 
-            sh "del service.yaml"
+            sh "rm service.yaml"
             writeYaml(data: service, file: "service.yaml")
 
             // ConfigMap
@@ -70,7 +70,7 @@ def call(Map config = [:]) {
             configmap.data = configData
 
 
-            sh "del configmap.yaml"
+            sh "rm configmap.yaml"
             writeYaml(data: configmap, file: "configmap.yaml")
 
             sh "type deployment.yaml"
