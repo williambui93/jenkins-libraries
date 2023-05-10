@@ -104,7 +104,7 @@ def call(Map config = [:]) {
             //def output = new File('deploymentservice.yaml')
             //yaml.dump(obj, output.newWriter())
                 
-            //sh "type ./deploymentservice.yaml"
+            sh "type ./deploymentservice.yaml"
             
             }
         } else {
