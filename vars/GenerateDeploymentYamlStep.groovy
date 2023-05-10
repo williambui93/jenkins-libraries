@@ -93,14 +93,14 @@ def call(Map config = [:]) {
             //def dataconfigmap = configmap2.text
             
             // Gabungkan konten kedua file menjadi satu teks
-            def merged_data = "${deployment}\n ------- \n${service}\n ------- \n${configmap}"
+            //def merged_data = "${deployment}\n ------- \n${service}\n ------- \n${configmap}"
 
             // Konversi teks gabungan menjadi objek YAML
             //def yaml = new Yaml()
             //def obj = yaml.load(merged_data)
 
             // Simpan objek gabungan ke dalam file baru
-            writeYaml(data: merged_data, file: "deploymentservice.yaml")
+            writeYaml(data: [deployment, service, configmap], file: "deploymentservice.yaml")
             //def output = new File('deploymentservice.yaml')
             //yaml.dump(obj, output.newWriter())
                 
