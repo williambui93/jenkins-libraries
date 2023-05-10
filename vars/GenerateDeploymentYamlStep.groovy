@@ -80,29 +80,29 @@ def call(Map config = [:]) {
             sh "type ./service.yaml"
             sh "type ./configmap.yaml"
             
-            def deployment2 = new File('./deployment.yaml')
+            //def deployment2 = new File('./deployment.yaml')
             //def deployment2 = readYaml(file: 'deployment.yaml')
-            def datadeployment = deployment2.text
+            //def datadeployment = deployment2.text
                 
-            def service2 = new File('./service.yaml')
+            //def service2 = new File('./service.yaml')
             //def service2 = readYaml(file: 'service.yaml')
-            def dataservice = service2.text
+            //def dataservice = service2.text
                 
-            def configmap2 = new File('./configmap.yaml')
+            //def configmap2 = new File('./configmap.yaml')
             //def configmap2 = readYaml(file: 'configmap.yaml')
-            def dataconfigmap = configmap2.text
+            //def dataconfigmap = configmap2.text
             
             // Gabungkan konten kedua file menjadi satu teks
-            def merged_data = "${datadeployment}\n ------- \n${dataservice}\n ------- \n${dataconfigmap}"
+            def merged_data = "${deployment}\n ------- \n${service}\n ------- \n${configmap}"
 
             // Konversi teks gabungan menjadi objek YAML
-            def yaml = new Yaml()
-            def obj = yaml.load(merged_data)
+            //def yaml = new Yaml()
+            //def obj = yaml.load(merged_data)
 
             // Simpan objek gabungan ke dalam file baru
-            //writeYaml(data: obj, file: "deploymentservice.yaml")
-            def output = new File('deploymentservice.yaml')
-            yaml.dump(obj, output.newWriter())
+            writeYaml(data: merged_data, file: "deploymentservice.yaml")
+            //def output = new File('deploymentservice.yaml')
+            //yaml.dump(obj, output.newWriter())
                 
             //sh "type ./deploymentservice.yaml"
             
