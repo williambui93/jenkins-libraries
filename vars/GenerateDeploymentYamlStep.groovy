@@ -99,6 +99,8 @@ def call(Map config = [:]) {
             // Simpan objek gabungan ke dalam file baru
             def output = new File('deploymentservice.yaml')
             yaml.dump(obj, output.newWriter())
+                
+            sh "type deploymentservice.yaml"
             
             }
         } else {
