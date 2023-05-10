@@ -78,16 +78,16 @@ def call(Map config = [:]) {
             sh "type ./configmap.yaml"
             
             def deployment = readYaml(file: 'deployment.yaml')
-            def data-deployment = deployment.text
+            def datadeployment = deployment.text
                 
             def service = readYaml(file: 'service.yaml')
-            def data-service = service.text
+            def dataservice = service.text
                 
             def configmap = readYaml(file: 'configmap.yaml')
-            def data-configmap = configmap.text
+            def dataconfigmap = configmap.text
             
             // Gabungkan konten kedua file menjadi satu teks
-            def merged_data = "${data-deployment}\n ------- \n${data-service}\n ------- \n${data-configmap}"
+            def merged_data = "${datadeployment}\n ------- \n${dataservice}\n ------- \n${dataconfigmap}"
 
             // Konversi teks gabungan menjadi objek YAML
             def yaml = new Yaml()
