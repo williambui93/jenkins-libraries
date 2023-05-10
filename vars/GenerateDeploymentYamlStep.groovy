@@ -80,15 +80,15 @@ def call(Map config = [:]) {
             sh "type ./service.yaml"
             sh "type ./configmap.yaml"
             
-            def deployment2 = new File('deployment.yaml')
+            def deployment2 = new File('./deployment.yaml')
             //def deployment2 = readYaml(file: 'deployment.yaml')
             def datadeployment = deployment2.text
                 
-            def service2 = new File('service.yaml')
+            def service2 = new File('./service.yaml')
             //def service2 = readYaml(file: 'service.yaml')
             def dataservice = service2.text
                 
-            def configmap2 = new File('configmap.yaml')
+            def configmap2 = new File('./configmap.yaml')
             //def configmap2 = readYaml(file: 'configmap.yaml')
             def dataconfigmap = configmap2.text
             
