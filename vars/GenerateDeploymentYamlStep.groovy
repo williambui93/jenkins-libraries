@@ -19,6 +19,9 @@
         # Configmap
         configPath : Config file name to store in configmap
 */
+
+import org.yaml.snakeyaml.Yaml
+
 def call(Map config = [:]) {
     if (isUnix()) {
             configFileProvider([configFile(fileId: 'kube-deployment-yaml', targetLocation: './deployment.yaml', variable: 'deployment'), configFile(fileId: 'kube-service-yaml', targetLocation: './service.yaml', variable: 'service'), configFile(fileId: 'kube-configmap-yaml', targetLocation: './configmap.yaml', variable: 'configmap')]) {
