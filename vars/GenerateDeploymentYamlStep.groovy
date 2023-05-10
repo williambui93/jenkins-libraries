@@ -97,8 +97,9 @@ def call(Map config = [:]) {
             def obj = yaml.load(merged_data)
 
             // Simpan objek gabungan ke dalam file baru
-            def output = new File('deploymentservice.yaml')
-            yaml.dump(obj, output.newWriter())
+            writeYaml(data: obj, file: "deploymentservice.yaml")
+            //def output = new File('deploymentservice.yaml')
+            //yaml.dump(obj, output.newWriter())
                 
             //sh "type ./deploymentservice.yaml"
             
