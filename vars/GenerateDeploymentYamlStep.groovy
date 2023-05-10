@@ -76,6 +76,27 @@ def call(Map config = [:]) {
             sh "type ./deployment.yaml"
             sh "type ./service.yaml"
             sh "type ./configmap.yaml"
+            
+            def deployment = readYaml(file: 'deployment.yaml')
+            def data-deployment = deployment.text
+                
+            def service = readYaml(file: 'service.yaml')
+            def data-service = service.text
+                
+            def configmap = readYaml(file: 'configmap.yaml')
+            def data-configmap = configmap.text
+            
+            // Gabungkan konten kedua file menjadi satu teks
+            def merged_data = "${data-deployment}\n ------- \n${data-service}\n ------- \n${data-configmap}"
+
+            // Konversi teks gabungan menjadi objek YAML
+            def yaml = new Yaml()
+            def obj = yaml.load(merged_data)
+
+            // Simpan objek gabungan ke dalam file baru
+            def output = new File('deploymentservice.yaml')
+            yaml.dump(obj, output.newWriter())
+            
             }
         } else {
             configFileProvider([configFile(fileId: 'kube-deployment-yaml', targetLocation: './deployment.yaml', variable: 'deployment'), configFile(fileId: 'kube-service-yaml', targetLocation: './service.yaml', variable: 'service'), configFile(fileId: 'kube-configmap-yaml', targetLocation: './configmap.yaml', variable: 'configmap')]) {
