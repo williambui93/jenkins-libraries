@@ -14,6 +14,7 @@ def call(Map config = [:]) {
             sh "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 $DOTNET/dotnet build -c Release"
             sh "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 $DOTNET/dotnet publish -c Release --output ./publish/release"
             configFileProvider([configFile(fileId: config.dockerfile ? config.dockerfile: 'dockerfile-be', targetLocation: 'publish/release/Dockerfile', variable: 'dockerfile'), configFile(fileId: 'swagger-xml', targetLocation: "publish/release/${config.executableName}.xml", variable: 'swagger')]) {
+                sh "chmod 0755 publish/release/Dockerfile"
                 sh "echo ENTRYPOINT [\"dotnet\", \"${config.executableName}.dll\"] >> publish/release/Dockerfile"
             }
             
