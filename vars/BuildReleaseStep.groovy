@@ -13,8 +13,8 @@ def call(Map config = [:]) {
     if (isUnix()) {
         if (config.executableName) {
             def optionalParams = config.skipBuildEvent ? "/p:PreBuildEvent=;PostBuildEvent=" : ""
-            sh "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 $DOTNET/dotnet build -c Release ${optionalParams}"
-            sh "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 $DOTNET/dotnet publish -c Release --output ./publish/release ${optionalParams}"
+            sh "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 $DOTNET/dotnet build -c Release /p:PreBuildEvent=''"
+            sh "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 $DOTNET/dotnet publish -c Release --output ./publish/release /p:PreBuildEvent=''"
             configFileProvider([configFile(fileId: config.dockerfile ? config.dockerfile: 'dockerfile-be', targetLocation: 'publish/release/Dockerfile', variable: 'dockerfile'), configFile(fileId: 'swagger-xml', targetLocation: "publish/release/${config.executableName}.xml", variable: 'swagger')]) {
                 sh "chmod 0777 publish/release/Dockerfile"
                 sh "echo ENTRYPOINT [\"\\\"\"dotnet\"\\\"\", \"\\\"\"${config.executableName}.dll\"\\\"\"] >> publish/release/Dockerfile"
