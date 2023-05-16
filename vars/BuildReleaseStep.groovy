@@ -24,7 +24,7 @@ def call(Map config = [:]) {
         } else {
             npm = "npm"
             if (config.useNodeTool == true) {
-                npm = "$NODE"
+                npm = "NODE"
             }
             def baseHref = config.baseHref ? config.baseHref: "/"
             sh "${npm}/node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng build --base-href ${baseHref} --deploy-url ${baseHref}"
