@@ -24,7 +24,7 @@ import org.yaml.snakeyaml.Yaml
 
 def call(Map config = [:]) {
     if (isUnix()) {
-            configFileProvider([configFile(fileId: 'kube-deployment-yaml', targetLocation: './deployment.yaml', variable: 'deployment'), configFile(fileId: 'kube-service-yaml', targetLocation: './service.yaml', variable: 'service'), configFile(fileId: 'kube-configmap-yaml', targetLocation: './configmap.yaml', variable: 'configmap')]) {
+            configFileProvider([configFile(fileId: 'kube-deployment-yaml', targetLocation: './deployment.yaml', variable: 'deployment'), configFile(fileId: 'kube-service-yaml', targetLocation: './service.yaml', variable: 'service'), configFile(fileId: 'kube-configmap-yaml', targetLocation: './configmap.yaml', variable: 'configmap'), configFile(fileId: 'kube-kustomization-yaml', targetLocation: './kustomization.yaml', variable: 'kustomization')]) {
             def matchers = ~ /.*-(frontend|fe)/
             config.type = config.type ? config.type: (matchers.matcher(config.deploymentName).matches() ? "fe": "be")
 
@@ -48,6 +48,14 @@ def call(Map config = [:]) {
             deployment.spec.template.spec.containers[0].volumeMounts[0].name = """${config.deploymentName}-volume"""
             deployment.spec.template.spec.containers[0].volumeMounts[0].mountPath = (config.configContainerPath ? config.configContainerPath: (config.type == 'fe' ? "/usr/share/nginx/html/assets/config/${config.configMapFileName}": "/app/${config.configMapFileName}"))
             deployment.spec.template.spec.containers[0].volumeMounts[0].subPath = config.configMapFileName
+                
+            deployment.spec.template.spec.containers[0].env[0].name = 'SECRET_DB_USERNAME'
+            deployment.spec.template.spec.containers[0].env[0].valueFrom.secretKeyRef.name = 'rnd-database-env-secret'
+            deployment.spec.template.spec.containers[0].env[0].valueFrom.secretKeyRef.key = 'username'
+
+            deployment.spec.template.spec.containers[0].env[1].name = 'SECRET_DB_PASS'
+            deployment.spec.template.spec.containers[0].env[1].valueFrom.secretKeyRef.name = 'rnd-database-env-secret'
+            deployment.spec.template.spec.containers[0].env[1].valueFrom.secretKeyRef.key = 'pass'
 
             sh "rm ./deployment.yaml"
             writeYaml(data: deployment, file: "deployment.yaml")
@@ -71,6 +79,8 @@ def call(Map config = [:]) {
             def data = config.configPath ? readFile(config.configPath): "{}"
             Map configData = [(config.configMapFileName): data]
             configmap.data = configData
+
+            def kustomization = readYaml(file: 'kustomization.yaml')
 
 
             sh "rm ./configmap.yaml"
@@ -100,7 +110,7 @@ def call(Map config = [:]) {
             //def obj = yaml.load(merged_data)
 
             // Simpan objek gabungan ke dalam file baru
-            writeYaml(datas: [deployment, service, configmap], file: "deploymentservice.yaml")
+            writeYaml(datas: [deployment, service, configmap, kustomization], file: "deploymentservice.yaml")
             //def output = new File('deploymentservice.yaml')
             //yaml.dump(obj, output.newWriter())
                 
