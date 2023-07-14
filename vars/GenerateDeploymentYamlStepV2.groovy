@@ -21,6 +21,8 @@
 */
 
 import org.yaml.snakeyaml.Yaml
+import groovy.json.JsonSlurper
+import groovy.json.JsonOutput
 
 def call(Map config = [:]) {
     if (isUnix()) {
