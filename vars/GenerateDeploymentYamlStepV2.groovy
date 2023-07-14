@@ -110,10 +110,10 @@ def call(Map config = [:]) {
                         keyValuePairs['Database'] = jsonConfSetting."Logging"."DataBasePostgreSQL"."DatabaseName"
                         
                         
-                        def data = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
+                        def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
                         
                         jsonAppSetting."ConnectionStrings"."Logging"."DataBaseType" = jsonConfSetting."Logging"."DataBaseType"
-                        jsonAppSetting."ConnectionStrings"."Logging"."DataBasePostgreSQL" = data
+                        jsonAppSetting."ConnectionStrings"."Logging"."DataBasePostgreSQL" = data2
                     }
                     else if(jsonConfSetting."Logging"."DataBaseType" == "SSMS")
                     {
@@ -135,10 +135,10 @@ def call(Map config = [:]) {
                         keyValuePairs['Database'] = jsonConfSetting."Logging"."DataBasePostgreSQL"."DatabaseName"
                         
                         
-                        def data = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
+                        def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
                         
                         jsonAppSetting."ConnectionStrings"."Logging"."DataBaseType" = jsonConfSetting."Logging"."DataBaseType"
-                        jsonAppSetting."ConnectionStrings"."Logging"."DataBaseSSMS" = data
+                        jsonAppSetting."ConnectionStrings"."Logging"."DataBaseSSMS" = data2
                     }
                 }
                 
@@ -173,9 +173,9 @@ def call(Map config = [:]) {
                                 keyValuePairs['Database'] = jsonConfSetting."Database"."DataBasePostgreSQL"."DatabaseName"."$targetField"
                                 
                                 
-                                def data = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
+                                def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
                                 
-                                jsonAppSetting."ConnectionStrings"."$targetField"."DataBasePostgreSQL" = data
+                                jsonAppSetting."ConnectionStrings"."$targetField"."DataBasePostgreSQL" = data2
                                 
                                 
                             }
@@ -199,9 +199,9 @@ def call(Map config = [:]) {
                                 keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBasePostgreSQL"."DatabaseName"."$targetField"
                                 
                                 
-                                def data = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
+                                def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
                                 
-                                jsonAppSetting."ConnectionStrings"."$targetField"."SQLConnSP" = data
+                                jsonAppSetting."ConnectionStrings"."$targetField"."SQLConnSP" = data2
                                 
                             }
                         }
@@ -237,9 +237,9 @@ def call(Map config = [:]) {
                                     keyValuePairs['Database'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"
                                     
                                     
-                                    def data = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
+                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
                                     
-                                    jsonAppSetting."ConnectionStrings"."$targetField"."DataBaseSSMS" = data
+                                    jsonAppSetting."ConnectionStrings"."$targetField"."DataBaseSSMS" = data2
                                     
                                     
                                 }
@@ -263,9 +263,9 @@ def call(Map config = [:]) {
                                     keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"
                                     
                                     
-                                    def data = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
+                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
                                     
-                                    jsonAppSetting."ConnectionStrings"."$targetField"."SQLConnSP" = data
+                                    jsonAppSetting."ConnectionStrings"."$targetField"."SQLConnSP" = data2
                                     
                                 }
                             }
@@ -298,9 +298,9 @@ def call(Map config = [:]) {
                                     keyValuePairs['Database'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"
                                     
                                     
-                                    def data = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
+                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
                                     
-                                    jsonAppSetting."ConnectionStrings"."$targetField"."DataBase" = data
+                                    jsonAppSetting."ConnectionStrings"."$targetField"."DataBase" = data2
                                     
                                     
                                 }
@@ -324,9 +324,9 @@ def call(Map config = [:]) {
                                     keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"
                                     
                                     
-                                    def data = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
+                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
                                     
-                                    jsonAppSetting."ConnectionStrings"."$targetField"."SQLConnSP" = data
+                                    jsonAppSetting."ConnectionStrings"."$targetField"."SQLConnSP" = data2
                                     
                                 }
                             }
