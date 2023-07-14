@@ -70,7 +70,7 @@ def call(Map config = [:]) {
             configmap.metadata.namespace = config.namespace
             def data = config.configPath ? readFile(config.configPath): "{}"
 
-            if (config.type == 'fe')
+            if (config.type != 'fe')
             {
                 def jsonString = data
                 def jsonSetting = readFile(file: 'GeneralConfig.json')
