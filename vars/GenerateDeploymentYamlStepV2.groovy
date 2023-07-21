@@ -168,10 +168,10 @@ def call(Map config = [:]) {
                             keyValuePairs['Database'] = jsonConfSetting."LicenseConfig"."DataBasePostgreSQL"."DatabaseName"
                             
                             
-                            def data = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
+                            def data3 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
                             
                             jsonAppSetting."LicenseConfig"."DataBaseType" = jsonConfSetting."LicenseConfig"."DataBaseType"
-                            jsonAppSetting."LicenseConfig"."DataBasePostgreSQL" = data
+                            jsonAppSetting."LicenseConfig"."DataBasePostgreSQL" = data3
                         }
                         
                     }
@@ -197,10 +197,10 @@ def call(Map config = [:]) {
                             keyValuePairs['Database'] = jsonConfSetting."LicenseConfig"."DataBaseSSMS"."DatabaseName"
                             
                             
-                            def data = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
+                            def data3 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
                             
                             jsonAppSetting."LicenseConfig"."DataBaseType" = jsonConfSetting."LicenseConfig"."DataBaseType"
-                            jsonAppSetting."LicenseConfig"."DataBaseSSMS" = data
+                            jsonAppSetting."LicenseConfig"."DataBaseSSMS" = data3
                         }
                         else
                         {
@@ -222,9 +222,9 @@ def call(Map config = [:]) {
                             keyValuePairs['Database'] = jsonConfSetting."LicenseConfig"."DataBaseSSMS"."DatabaseName"
                             
                             
-                            def data = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
+                            def data3 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
                             
-                            jsonAppSetting."LicenseConfig"."DataBase" = data
+                            jsonAppSetting."LicenseConfig"."DataBase" = data3
                         }
                     }
                     
