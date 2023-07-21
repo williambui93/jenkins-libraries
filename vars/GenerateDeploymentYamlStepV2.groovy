@@ -170,7 +170,7 @@ def call(Map config = [:]) {
                             
                             def data = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
                             
-                            jsonAppSetting."LicenseConfig"."DataBaseType" = jsonConfSetting."Logging"."DataBaseType"
+                            jsonAppSetting."LicenseConfig"."DataBaseType" = jsonConfSetting."LicenseConfig"."DataBaseType"
                             jsonAppSetting."LicenseConfig"."DataBasePostgreSQL" = data
                         }
                         
