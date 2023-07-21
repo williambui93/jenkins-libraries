@@ -141,6 +141,95 @@ def call(Map config = [:]) {
                         jsonAppSetting."ConnectionStrings"."Logging"."DataBaseSSMS" = data2
                     }
                 }
+
+                //Ubah LicenseConfig
+                if("LicenseConfig" in jsonAppSetting.keySet())
+                {
+                    if (jsonConfSetting."LicenseConfig"."DataBaseType" == "POSTGRESQL")
+                    {
+                        if('DataBasePostgreSQL' in jsonAppSetting."LicenseConfig")
+                        {
+                            def DBString = jsonAppSetting."LicenseConfig"."DataBasePostgreSQL"
+                                
+                            def DBStringSplitData = DBString.split(';')
+                            def keyValuePairs = [:]
+                            
+                            DBStringSplitData.each { pair ->
+                                def keyValue = pair.split('=')
+                                def key = keyValue[0].trim()
+                                def value = keyValue[1].trim()
+                                keyValuePairs[key] = value
+                            }
+                            
+                            keyValuePairs['Host'] = jsonConfSetting."LicenseConfig"."DataBasePostgreSQL"."Host"
+                            keyValuePairs['User ID'] = jsonConfSetting."LicenseConfig"."DataBasePostgreSQL"."User ID"
+                            keyValuePairs['Password'] = jsonConfSetting."LicenseConfig"."DataBasePostgreSQL"."Password"
+                            keyValuePairs['Port'] = jsonConfSetting."LicenseConfig"."DataBasePostgreSQL"."Port"
+                            keyValuePairs['Database'] = jsonConfSetting."LicenseConfig"."DataBasePostgreSQL"."DatabaseName"
+                            
+                            
+                            def data = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
+                            
+                            jsonAppSetting."LicenseConfig"."DataBaseType" = jsonConfSetting."Logging"."DataBaseType"
+                            jsonAppSetting."LicenseConfig"."DataBasePostgreSQL" = data
+                        }
+                        
+                    }
+                    else if(jsonConfSetting."LicenseConfig"."DataBaseType" == "SSMS")
+                    {
+                        if('DataBaseSSMS' in jsonAppSetting."LicenseConfig")
+                        {
+                            def DBString = jsonAppSetting."LicenseConfig"."DataBaseSSMS"
+                                
+                            def DBStringSplitData = DBString.split(';')
+                            def keyValuePairs = [:]
+                            
+                            DBStringSplitData.each { pair ->
+                                def keyValue = pair.split('=')
+                                def key = keyValue[0].trim()
+                                def value = keyValue[1].trim()
+                                keyValuePairs[key] = value
+                            }
+                            
+                            keyValuePairs['Server'] = jsonConfSetting."LicenseConfig"."DataBaseSSMS"."Server"
+                            keyValuePairs['User ID'] = jsonConfSetting."LicenseConfig"."DataBaseSSMS"."User ID"
+                            keyValuePairs['Password'] = jsonConfSetting."LicenseConfig"."DataBaseSSMS"."Password"
+                            keyValuePairs['Database'] = jsonConfSetting."LicenseConfig"."DataBaseSSMS"."DatabaseName"
+                            
+                            
+                            def data = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
+                            
+                            jsonAppSetting."LicenseConfig"."DataBaseType" = jsonConfSetting."LicenseConfig"."DataBaseType"
+                            jsonAppSetting."LicenseConfig"."DataBaseSSMS" = data
+                        }
+                        else
+                        {
+                            def DBString = jsonAppSetting."LicenseConfig"."DataBase"
+                                
+                            def DBStringSplitData = DBString.split(';')
+                            def keyValuePairs = [:]
+                            
+                            DBStringSplitData.each { pair ->
+                                def keyValue = pair.split('=')
+                                def key = keyValue[0].trim()
+                                def value = keyValue[1].trim()
+                                keyValuePairs[key] = value
+                            }
+                            
+                            keyValuePairs['Server'] = jsonConfSetting."LicenseConfig"."DataBaseSSMS"."Server"
+                            keyValuePairs['User ID'] = jsonConfSetting."LicenseConfig"."DataBaseSSMS"."User ID"
+                            keyValuePairs['Password'] = jsonConfSetting."LicenseConfig"."DataBaseSSMS"."Password"
+                            keyValuePairs['Database'] = jsonConfSetting."LicenseConfig"."DataBaseSSMS"."DatabaseName"
+                            
+                            
+                            def data = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
+                            
+                            jsonAppSetting."LicenseConfig"."DataBase" = data
+                        }
+                    }
+                    
+                    jsonAppSetting."LicenseConfig"."EnableLicense" = jsonConfSetting."LicenseConfig"."EnableLicense"
+                }
                 
                 
                 // Ubah Database
