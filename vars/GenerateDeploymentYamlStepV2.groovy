@@ -449,6 +449,20 @@ def call(Map config = [:]) {
                 
                 //Ubah Connection String Redis
                 jsonAppSetting."RedisConfig"."ConnStringRedis" = jsonConfSetting."Redis"."ConnStringRedis"
+
+                //Ubah Connection Queue
+                if("Queue" in jsonConfSetting.keySet())
+                {
+                    jsonAppSetting."Queue"."Provider" = jsonConfSetting."Queue"."Provider"
+                    jsonAppSetting."Queue"."IsUseIntegration" = jsonConfSetting."Queue"."IsUseIntegration"
+                    jsonAppSetting."Queue"."UserName" = jsonConfSetting."Queue"."UserName"
+                    jsonAppSetting."Queue"."Password" = jsonConfSetting."Queue"."Password"
+                    jsonAppSetting."Queue"."VHost" = jsonConfSetting."Queue"."VHost"
+                    jsonAppSetting."Queue"."Name" = jsonConfSetting."Queue"."Name"
+                    jsonAppSetting."Queue"."HostName" = jsonConfSetting."Queue"."HostName"
+                    jsonAppSetting."Queue"."Port" = jsonConfSetting."Queue"."Port"
+                    jsonAppSetting."Queue"."MaxRetry" = jsonConfSetting."Queue"."MaxRetry"
+                }
                 
                 // Memperbarui nilai field tertentu
                 //json."test"."LogLevel"."$targetField" = newValue
