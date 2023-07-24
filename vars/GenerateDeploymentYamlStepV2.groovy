@@ -463,9 +463,15 @@ def call(Map config = [:]) {
                     jsonAppSetting."Queue"."Port" = jsonConfSetting."Queue"."Port"
                     jsonAppSetting."Queue"."MaxRetry" = jsonConfSetting."Queue"."MaxRetry"
                 }
+                else if("RMQSettings" in jsonConfSetting.keySet())
+                {
+                    jsonAppSetting."RMQSettings"."RMQConnect"."Endpoints" = jsonConfSetting."Queue"."HostName"
+                    jsonAppSetting."RMQSettings"."RMQConnect"."Username" = jsonConfSetting."Queue"."UserName"
+                    jsonAppSetting."RMQSettings"."RMQConnect"."Password" = jsonConfSetting."Queue"."Password"
+                    jsonAppSetting."RMQSettings"."RMQConnect"."VirtualHostName" = jsonConfSetting."Queue"."VHost"
+                    jsonAppSetting."RMQSettings"."RMQConnect"."Port" = jsonConfSetting."Queue"."Port"
+                }
                 
-                // Memperbarui nilai field tertentu
-                //json."test"."LogLevel"."$targetField" = newValue
                 
                 // Mengubah JSON kembali menjadi string
                 data = JsonOutput.toJson(jsonAppSetting)
