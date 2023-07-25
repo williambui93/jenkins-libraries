@@ -502,7 +502,32 @@ def call(Map config = [:]) {
                  
                  }
                 }
+
+                // Mengubah JSON kembali menjadi string
+                data = JsonOutput.toJson(jsonAppSetting)
+            }
+            else if(config.configMapFileName == 'application.yaml')
+            {
+
+                def StringYaml = data
+                def jsonSetting = readFile(file: 'GeneralConfig.json')
                 
+                def yaml = new Yaml()
+                def jsonAppSetting = yaml.load(StringYaml)
+                
+                def jsonConfSetting = new JsonSlurper().parseText(jsonSetting)
+              
+                // Ubah URL FrontEnd
+                if("camunda" in jsonAppSetting.keySet()) {
+                     jsonAppSetting."foundation-url" = jsonConfSetting."Camunda"."foundation-url"
+                     jsonAppSetting."data-base-type" = jsonConfSetting."Camunda"."data-base-type"
+                     jsonAppSetting.spring.datasource.username = jsonConfSetting."Camunda"."username"
+                     jsonAppSetting.spring.datasource.password = jsonConfSetting."Camunda"."password"
+                     jsonAppSetting.spring.datasource.url = jsonConfSetting."Camunda"."url"
+                }
+                
+                // Mengubah JSON kembali menjadi string
+                data = yaml.dump(jsonAppSetting)
             }
             
             Map configData = [(config.configMapFileName): data]
