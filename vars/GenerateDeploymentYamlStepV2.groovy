@@ -72,7 +72,7 @@ def call(Map config = [:]) {
             configmap.metadata.namespace = config.namespace
             def data = config.configPath ? readFile(config.configPath): "{}"
 
-            if (config.type != 'fe')
+            if (config.type != 'fe' && config.configMapFileName == 'appsettings.json')
             {
                 def jsonString = data
                 def jsonSetting = readFile(file: 'GeneralConfig.json')
@@ -475,6 +475,10 @@ def call(Map config = [:]) {
                 
                 // Mengubah JSON kembali menjadi string
                 data = JsonOutput.toJson(jsonAppSetting)
+            }
+            else if (config.type == 'fe' && config.configMapFileName == 'appsettings.json')
+            {
+                
             }
             
             Map configData = [(config.configMapFileName): data]
