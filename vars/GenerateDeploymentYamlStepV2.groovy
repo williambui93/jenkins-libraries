@@ -18,6 +18,7 @@
         
         # Configmap
         configPath : Config file name to store in configmap
+        
 */
 
 import org.yaml.snakeyaml.Yaml
@@ -26,7 +27,7 @@ import groovy.json.JsonOutput
 
 def call(Map config = [:]) {
     if (isUnix()) {
-            configFileProvider([configFile(fileId: 'kube-deployment-yaml', targetLocation: './deployment.yaml', variable: 'deployment'), configFile(fileId: 'kube-service-yaml', targetLocation: './service.yaml', variable: 'service'), configFile(fileId: 'kube-configmap-yaml', targetLocation: './configmap.yaml', variable: 'configmap'), configFile(fileId: 'GeneralConfig', targetLocation: './GeneralConfig.json', variable: 'GeneralConfig')]) {
+            configFileProvider([configFile(fileId: 'kube-deployment-yaml', targetLocation: './deployment.yaml', variable: 'deployment'), configFile(fileId: 'kube-service-yaml', targetLocation: './service.yaml', variable: 'service'), configFile(fileId: 'kube-configmap-yaml', targetLocation: './configmap.yaml', variable: 'configmap'), configFile(fileId: 'GeneralConfig', targetLocation: './GeneralConfig.json', variable: 'GeneralConfig'), configFile(fileId: 'GeneralConfig_FrontEnd', targetLocation: './GeneralConfig_FrontEnd.json', variable: 'GeneralConfig_FrontEnd')]) {
             def matchers = ~ /.*-(frontend|fe)/
             config.type = config.type ? config.type: (matchers.matcher(config.deploymentName).matches() ? "fe": "be")
 
@@ -478,6 +479,29 @@ def call(Map config = [:]) {
             }
             else if (config.type == 'fe')
             {
+                def jsonString = data
+                def jsonSetting = readFile(file: 'GeneralConfig_FrontEnd.json')
+                
+                // Membaca JSON
+                jsonString = jsonString.replace("\\", "/")
+                jsonSetting = jsonSetting.replace("\\", "/")
+                
+                //hapus comment di json
+                def jsonAppSettingWithoutComments = jsonString.replaceAll(/\/\*(?:[^*]|(?:\*+[^*\/]))*\*\//, '')
+                def jsonConfSettingWithoutComments = jsonSetting.replaceAll(/\/\*(?:[^*]|(?:\*+[^*\/]))*\*\//, '')
+                
+                def jsonAppSetting = new JsonSlurper().parseText(jsonAppSettingWithoutComments)
+                def jsonConfSetting = new JsonSlurper().parseText(jsonConfSettingWithoutComments)
+                
+                // Ubah URL FrontEnd
+                for(KeyNameSetting in jsonAppSetting) {
+                 targetField = KeyNameSetting.key;
+                 if (targetField in jsonConfSetting.keySet())
+                 {
+                     jsonAppSetting."$targetField" = jsonConfSetting."$targetField"
+                 
+                 }
+                }
                 
             }
             
