@@ -476,7 +476,7 @@ def call(Map config = [:]) {
                 // Mengubah JSON kembali menjadi string
                 data = JsonOutput.toJson(jsonAppSetting)
             }
-            else if (config.type == 'fe' && config.configMapFileName == 'appsettings.json')
+            else if (config.type == 'fe')
             {
                 
             }
