@@ -524,6 +524,17 @@ def call(Map config = [:]) {
                      jsonAppSetting.spring.datasource.username = jsonConfSetting."Camunda"."username"
                      jsonAppSetting.spring.datasource.password = jsonConfSetting."Camunda"."password"
                      jsonAppSetting.spring.datasource.url = jsonConfSetting."Camunda"."url"
+
+                     if (jsonConfSetting."Camunda"."data-base-type" == "SSMS")
+                     {
+                         jsonAppSetting.spring.datasource."driver-class-name" = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                         jsonAppSetting.spring.jpa."database-platform" = "org.hibernate.dialect.SQLServerDialect"
+                     }
+                     else if (jsonConfSetting."Camunda"."data-base-type" == "POSTGRESQL")
+                     {
+                         jsonAppSetting.spring.datasource."driver-class-name" = "org.postgresql.Driver"
+                         jsonAppSetting.spring.jpa."database-platform" = "org.hibernate.dialect.PostgreSQL9Dialect"
+                     }
                 }
                 
                 // Mengubah JSON kembali menjadi string
