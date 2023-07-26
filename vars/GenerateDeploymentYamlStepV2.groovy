@@ -454,23 +454,67 @@ def call(Map config = [:]) {
                 //Ubah Connection Queue
                 if("Queue" in jsonConfSetting.keySet())
                 {
-                    jsonAppSetting."Queue"."Provider" = jsonConfSetting."Queue"."Provider"
-                    jsonAppSetting."Queue"."IsUseIntegration" = jsonConfSetting."Queue"."IsUseIntegration"
-                    jsonAppSetting."Queue"."UserName" = jsonConfSetting."Queue"."UserName"
-                    jsonAppSetting."Queue"."Password" = jsonConfSetting."Queue"."Password"
-                    jsonAppSetting."Queue"."VHost" = jsonConfSetting."Queue"."VHost"
-                    jsonAppSetting."Queue"."Name" = jsonConfSetting."Queue"."Name"
-                    jsonAppSetting."Queue"."HostName" = jsonConfSetting."Queue"."HostName"
-                    jsonAppSetting."Queue"."Port" = jsonConfSetting."Queue"."Port"
-                    jsonAppSetting."Queue"."MaxRetry" = jsonConfSetting."Queue"."MaxRetry"
+                    if (jsonConfSetting."Queue"."Provider" == "RMQ")
+                    {
+                        if("RMQSettings" in jsonAppSetting.keySet())
+                        {
+                            jsonAppSetting."Queue"."Provider" = jsonConfSetting."Queue"."Provider"
+                            jsonAppSetting."RMQSettings"."RMQConnect"."UserName" = jsonConfSetting."Queue"."RMQSettings"."UserName"
+                            jsonAppSetting."RMQSettings"."RMQConnect"."Password" = jsonConfSetting."Queue"."RMQSettings"."Password"
+                            jsonAppSetting."RMQSettings"."RMQConnect"."VirtualHostName" = jsonConfSetting."Queue"."RMQSettings"."VHost"
+                            jsonAppSetting."RMQSettings"."RMQConnect"."QueueName" = jsonConfSetting."Queue"."RMQSettings"."Name"
+                            jsonAppSetting."RMQSettings"."RMQConnect"."Endpoints" = jsonConfSetting."Queue"."RMQSettings"."HostName"
+                            jsonAppSetting."RMQSettings"."RMQConnect"."Port" = jsonConfSetting."Queue"."RMQSettings"."Port"
+                            
+                        }
+                        else
+                        {
+                            jsonAppSetting."Queue"."Provider" = jsonConfSetting."Queue"."Provider"
+                            jsonAppSetting."Queue"."IsUseIntegration" = jsonConfSetting."Queue"."RMQSettings"."IsUseIntegration"
+                            jsonAppSetting."Queue"."UserName" = jsonConfSetting."Queue"."RMQSettings"."UserName"
+                            jsonAppSetting."Queue"."Password" = jsonConfSetting."Queue"."RMQSettings"."Password"
+                            jsonAppSetting."Queue"."VHost" = jsonConfSetting."Queue"."RMQSettings"."VHost"
+                            jsonAppSetting."Queue"."Name" = jsonConfSetting."Queue"."RMQSettings"."Name"
+                            jsonAppSetting."Queue"."HostName" = jsonConfSetting."Queue"."RMQSettings"."HostName"
+                            jsonAppSetting."Queue"."Port" = jsonConfSetting."Queue"."RMQSettings"."Port"
+                            jsonAppSetting."Queue"."MaxRetry" = jsonConfSetting."Queue"."RMQSettings"."MaxRetry"
+                        }
+                        
+                    }
+                    else if (jsonConfSetting."Queue"."Provider" == "MNS")
+                    {
+                        if("AlibabaMnsSettings" in jsonAppSetting.keySet())
+                        {
+                            jsonAppSetting."Queue"."Provider" = jsonConfSetting."Queue"."Provider"
+                            jsonAppSetting."AlibabaMnsSettings"."RegionId" = jsonConfSetting."Queue"."AlibabaMnsSettings"."RegionId"
+                            jsonAppSetting."AlibabaMnsSettings"."Endpoint" = jsonConfSetting."Queue"."AlibabaMnsSettings"."Endpoint"
+                            jsonAppSetting."AlibabaMnsSettings"."AccessKeyId" = jsonConfSetting."Queue"."AlibabaMnsSettings"."AccessKeyId"
+                            jsonAppSetting."AlibabaMnsSettings"."AccessKeySecret" = jsonConfSetting."Queue"."AlibabaMnsSettings"."AccessKeySecret"
+                        }
+                        
+                    }
+                    else if (jsonConfSetting."Queue"."Provider" == "SQS")
+                    {
+                        if("AlibabaMnsSettings" in jsonAppSetting.keySet())
+                        {
+                            jsonAppSetting."Queue"."Provider" = jsonConfSetting."Queue"."Provider"
+                            jsonAppSetting."AmazonSqsSettings"."Region" = jsonConfSetting."Queue"."AmazonSqsSettings"."Region"
+                            jsonAppSetting."AmazonSqsSettings"."ARN" = jsonConfSetting."Queue"."AmazonSqsSettings"."ARN"
+                            jsonAppSetting."AmazonSqsSettings"."Endpoint" = jsonConfSetting."Queue"."AmazonSqsSettings"."Endpoint"
+                            jsonAppSetting."AmazonSqsSettings"."AccessKeyId" = jsonConfSetting."Queue"."AmazonSqsSettings"."AccessKeyId"
+                            jsonAppSetting."AmazonSqsSettings"."AccessKeySecret" = jsonConfSetting."Queue"."AmazonSqsSettings"."AccessKeySecret"
+                        }
+                        
+                    }
+                    
                 }
                 else if("RMQSettings" in jsonConfSetting.keySet())
                 {
-                    jsonAppSetting."RMQSettings"."RMQConnect"."Endpoints" = jsonConfSetting."Queue"."HostName"
-                    jsonAppSetting."RMQSettings"."RMQConnect"."Username" = jsonConfSetting."Queue"."UserName"
-                    jsonAppSetting."RMQSettings"."RMQConnect"."Password" = jsonConfSetting."Queue"."Password"
-                    jsonAppSetting."RMQSettings"."RMQConnect"."VirtualHostName" = jsonConfSetting."Queue"."VHost"
-                    jsonAppSetting."RMQSettings"."RMQConnect"."Port" = jsonConfSetting."Queue"."Port"
+                    jsonAppSetting."RMQSettings"."RMQConnect"."Endpoints" = jsonConfSetting."Queue"."RMQSettings"."HostName"
+                    jsonAppSetting."RMQSettings"."RMQConnect"."Username" = jsonConfSetting."Queue"."RMQSettings"."UserName"
+                    jsonAppSetting."RMQSettings"."RMQConnect"."Password" = jsonConfSetting."Queue"."RMQSettings"."Password"
+                    jsonAppSetting."RMQSettings"."RMQConnect"."VirtualHostName" = jsonConfSetting."Queue"."RMQSettings"."VHost"
+                    jsonAppSetting."RMQSettings"."RMQConnect"."Port" = jsonConfSetting."Queue"."RMQSettings"."Port"
                 }
                 
                 
