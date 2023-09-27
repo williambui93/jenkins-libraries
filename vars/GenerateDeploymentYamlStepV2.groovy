@@ -592,6 +592,7 @@ def call(Map config = [:]) {
             sh "rm ./configmap.yaml"
             writeYaml(data: configmap, file: "configmap.yaml")
 
+            sh "./deployment.yaml"
             sh "type ./deployment.yaml"
             sh "type ./service.yaml"
             sh "type ./configmap.yaml"
