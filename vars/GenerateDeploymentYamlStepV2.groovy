@@ -459,7 +459,7 @@ def call(Map config = [:]) {
                         if("RMQSettings" in jsonAppSetting.keySet())
                         {
                             jsonAppSetting."Queue"."Provider" = jsonConfSetting."Queue"."Provider"
-                            jsonAppSetting."RMQSettings"."RMQConnect"."UserName" = jsonConfSetting."Queue"."RMQSettings"."UserName"
+                            jsonAppSetting."RMQSettings"."RMQConnect"."Username" = jsonConfSetting."Queue"."RMQSettings"."UserName"
                             jsonAppSetting."RMQSettings"."RMQConnect"."Password" = jsonConfSetting."Queue"."RMQSettings"."Password"
                             jsonAppSetting."RMQSettings"."RMQConnect"."VirtualHostName" = jsonConfSetting."Queue"."RMQSettings"."VHost"
                             jsonAppSetting."RMQSettings"."RMQConnect"."QueueName" = jsonConfSetting."Queue"."RMQSettings"."Name"
