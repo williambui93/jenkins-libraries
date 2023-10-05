@@ -110,7 +110,6 @@ def call(Map config = [:]) {
                         keyValuePairs['Port'] = jsonConfSetting."Logging"."DataBasePostgreSQL"."Port"
                         keyValuePairs['Database'] = jsonConfSetting."Logging"."DataBasePostgreSQL"."DatabaseName"
                         
-                        
                         def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
                         
                         jsonAppSetting."ConnectionStrings"."Logging"."DataBaseType" = jsonConfSetting."Logging"."DataBaseType"
@@ -134,7 +133,6 @@ def call(Map config = [:]) {
                         keyValuePairs['User ID'] = jsonConfSetting."Logging"."DataBasePostgreSQL"."User ID"
                         keyValuePairs['Password'] = jsonConfSetting."Logging"."DataBasePostgreSQL"."Password"
                         keyValuePairs['Database'] = jsonConfSetting."Logging"."DataBasePostgreSQL"."DatabaseName"
-                        
                         
                         def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
                         
@@ -168,7 +166,6 @@ def call(Map config = [:]) {
                             keyValuePairs['Port'] = jsonConfSetting."LicenseConfig"."DataBasePostgreSQL"."Port"
                             keyValuePairs['Database'] = jsonConfSetting."LicenseConfig"."DataBasePostgreSQL"."DatabaseName"
                             
-                            
                             def data3 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
                             
                             jsonAppSetting."LicenseConfig"."DataBaseType" = jsonConfSetting."LicenseConfig"."DataBaseType"
@@ -197,7 +194,6 @@ def call(Map config = [:]) {
                             keyValuePairs['Password'] = jsonConfSetting."LicenseConfig"."DataBaseSSMS"."Password"
                             keyValuePairs['Database'] = jsonConfSetting."LicenseConfig"."DataBaseSSMS"."DatabaseName"
                             
-                            
                             def data3 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
                             
                             jsonAppSetting."LicenseConfig"."DataBaseType" = jsonConfSetting."LicenseConfig"."DataBaseType"
@@ -206,7 +202,6 @@ def call(Map config = [:]) {
                         else
                         {
                             def DBString = jsonAppSetting."LicenseConfig"."DataBase"
-                                
                             def DBStringSplitData = DBString.split(';')
                             def keyValuePairs = [:]
                             
@@ -222,16 +217,13 @@ def call(Map config = [:]) {
                             keyValuePairs['Password'] = jsonConfSetting."LicenseConfig"."DataBaseSSMS"."Password"
                             keyValuePairs['Database'] = jsonConfSetting."LicenseConfig"."DataBaseSSMS"."DatabaseName"
                             
-                            
                             def data3 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
-                            
                             jsonAppSetting."LicenseConfig"."DataBase" = data3
                         }
                     }
                     
                     jsonAppSetting."LicenseConfig"."EnableLicense" = jsonConfSetting."LicenseConfig"."EnableLicense"
                 }
-                
                 
                 // Ubah Database
                 for(DatabaseName in jsonAppSetting."ConnectionStrings") {
@@ -245,7 +237,6 @@ def call(Map config = [:]) {
                             if(itemsSetting.key == "DataBasePostgreSQL")
                             {
                                 def DBString = itemsSetting.value
-                                
                                 def DBStringSplitData = DBString.split(';')
                                 def keyValuePairs = [:]
                                 
@@ -262,17 +253,13 @@ def call(Map config = [:]) {
                                 keyValuePairs['Password'] = jsonConfSetting."Database"."DataBasePostgreSQL"."Password"
                                 keyValuePairs['Database'] = jsonConfSetting."Database"."DataBasePostgreSQL"."DatabaseName"."$targetField"
                                 
-                                
                                 def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
-                                
                                 jsonAppSetting."ConnectionStrings"."$targetField"."DataBasePostgreSQL" = data2
-                                
                                 
                             }
                             else if(itemsSetting.key == "SQLConnSP")
                             {
                                 def DBString = itemsSetting.value
-                                
                                 def DBStringSplitData = DBString.split(';')
                                 def keyValuePairs = [:]
                                 
@@ -288,17 +275,13 @@ def call(Map config = [:]) {
                                 keyValuePairs['Password'] = jsonConfSetting."Database"."DataBasePostgreSQL"."Password"
                                 keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBasePostgreSQL"."DatabaseName"."$targetField"
                                 
-                                
                                 def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
-                                
                                 jsonAppSetting."ConnectionStrings"."$targetField"."SQLConnSP" = data2
                                 
                             }
                             else if(itemsSetting.key.contains("TableAdapters"))
                             {
-
                                 def DBString = itemsSetting.value
-                                
                                 def DBStringSplitData = DBString.split(';')
                                 def keyValuePairs = [:]
                                 
@@ -314,9 +297,7 @@ def call(Map config = [:]) {
                                 keyValuePairs['Password'] = jsonConfSetting."Database"."DataBasePostgreSQL"."Password"
                                 keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBasePostgreSQL"."DatabaseName"."$targetField"."$itemsSetting.key"
                                 
-                                
                                 def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
-                                
                                 jsonAppSetting."ConnectionStrings"."$targetField"."$itemsSetting.key" = data2
                                 
                             }
@@ -336,7 +317,6 @@ def call(Map config = [:]) {
                                 if(itemsSetting.key == 'DataBaseSSMS')
                                 {
                                     def DBString = itemsSetting.value
-                                    
                                     def DBStringSplitData = DBString.split(';')
                                     def keyValuePairs = [:]
                                     
@@ -352,17 +332,13 @@ def call(Map config = [:]) {
                                     keyValuePairs['Password'] = jsonConfSetting."Database"."DataBaseSSMS"."Password"
                                     keyValuePairs['Database'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"
                                     
-                                    
                                     def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
-                                    
                                     jsonAppSetting."ConnectionStrings"."$targetField"."DataBaseSSMS" = data2
-                                    
                                     
                                 }
                                 else if(itemsSetting.key == 'SQLConnSP')
                                 {
-                                    def DBString = itemsSetting.value
-                                    
+                                    def DBString = itemsSetting.value                                    
                                     def DBStringSplitData = DBString.split(';')
                                     def keyValuePairs = [:]
                                     
@@ -376,18 +352,15 @@ def call(Map config = [:]) {
                                     keyValuePairs['Data Source'] = jsonConfSetting."Database"."DataBaseSSMS"."Server"
                                     keyValuePairs['user id'] = jsonConfSetting."Database"."DataBaseSSMS"."User ID"
                                     keyValuePairs['Password'] = jsonConfSetting."Database"."DataBaseSSMS"."Password"
-                                    keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"
+                                    keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"                                    
                                     
-                                    
-                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
-                                    
+                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')                                    
                                     jsonAppSetting."ConnectionStrings"."$targetField"."SQLConnSP" = data2
                                     
                                 }
                                 else if(itemsSetting.key.contains("TableAdapters"))
                                 {
-                                    def DBString = itemsSetting.value
-                                    
+                                    def DBString = itemsSetting.value                                    
                                     def DBStringSplitData = DBString.split(';')
                                     def keyValuePairs = [:]
                                     
@@ -401,16 +374,13 @@ def call(Map config = [:]) {
                                     keyValuePairs['Data Source'] = jsonConfSetting."Database"."DataBaseSSMS"."Server"
                                     keyValuePairs['user id'] = jsonConfSetting."Database"."DataBaseSSMS"."User ID"
                                     keyValuePairs['Password'] = jsonConfSetting."Database"."DataBaseSSMS"."Password"
-                                    keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"."$itemsSetting.key"
+                                    keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"."$itemsSetting.key"                                    
                                     
-                                    
-                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
-                                    
+                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')                                    
                                     jsonAppSetting."ConnectionStrings"."$targetField"."$itemsSetting.key" = data2
                                     
                                 }
-                            }
-                         
+                            }                         
                         }
                      }
                      else
@@ -421,8 +391,7 @@ def call(Map config = [:]) {
                             {
                                 if(itemsSetting.key == 'DataBase')
                                 {
-                                    def DBString = itemsSetting.value
-                                    
+                                    def DBString = itemsSetting.value                                    
                                     def DBStringSplitData = DBString.split(';')
                                     def keyValuePairs = [:]
                                     
@@ -436,19 +405,15 @@ def call(Map config = [:]) {
                                     keyValuePairs['Server'] = jsonConfSetting."Database"."DataBaseSSMS"."Server"
                                     keyValuePairs['User ID'] = jsonConfSetting."Database"."DataBaseSSMS"."User ID"
                                     keyValuePairs['Password'] = jsonConfSetting."Database"."DataBaseSSMS"."Password"
-                                    keyValuePairs['Database'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"
+                                    keyValuePairs['Database'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"                                    
                                     
-                                    
-                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
-                                    
-                                    jsonAppSetting."ConnectionStrings"."$targetField"."DataBase" = data2
-                                    
+                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')                                    
+                                    jsonAppSetting."ConnectionStrings"."$targetField"."DataBase" = data2                                    
                                     
                                 }
                                 else if(itemsSetting.key == 'SQLConnSP')
                                 {
-                                    def DBString = itemsSetting.value
-                                    
+                                    def DBString = itemsSetting.value                                    
                                     def DBStringSplitData = DBString.split(';')
                                     def keyValuePairs = [:]
                                     
@@ -462,18 +427,15 @@ def call(Map config = [:]) {
                                     keyValuePairs['Data Source'] = jsonConfSetting."Database"."DataBaseSSMS"."Server"
                                     keyValuePairs['user id'] = jsonConfSetting."Database"."DataBaseSSMS"."User ID"
                                     keyValuePairs['Password'] = jsonConfSetting."Database"."DataBaseSSMS"."Password"
-                                    keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"
+                                    keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"                                    
                                     
-                                    
-                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
-                                    
+                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')                                    
                                     jsonAppSetting."ConnectionStrings"."$targetField"."SQLConnSP" = data2
                                     
                                 }
                                 else if(itemsSetting.key.contains("TableAdapters"))
                                 {
-                                    def DBString = itemsSetting.value
-                                    
+                                    def DBString = itemsSetting.value                                    
                                     def DBStringSplitData = DBString.split(';')
                                     def keyValuePairs = [:]
                                     
@@ -487,23 +449,17 @@ def call(Map config = [:]) {
                                     keyValuePairs['Data Source'] = jsonConfSetting."Database"."DataBaseSSMS"."Server"
                                     keyValuePairs['user id'] = jsonConfSetting."Database"."DataBaseSSMS"."User ID"
                                     keyValuePairs['Password'] = jsonConfSetting."Database"."DataBaseSSMS"."Password"
-                                    keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"."$itemsSetting.key"
+                                    keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"."$itemsSetting.key"                                    
                                     
-                                    
-                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
-                                    
+                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')                                    
                                     jsonAppSetting."ConnectionStrings"."$targetField"."$itemsSetting.key" = data2
                                     
                                 }
                             }
-                         
                         }
-                     }
-                 
-                 }
-                 
+                     }                 
+                 }                 
                 }
-                
                 
                 //Ubah URL
                 for(BeUrlName in jsonAppSetting."ConnectionStrings") {
@@ -518,8 +474,7 @@ def call(Map config = [:]) {
                             def UrlString = jsonConfSetting."URL"."$targetField"
                             jsonAppSetting."ConnectionStrings"."$targetField"."URL" = UrlString
                         }
-                    }
-                     
+                    }                     
                  }
                 }
                 
@@ -540,8 +495,7 @@ def call(Map config = [:]) {
                             jsonAppSetting."RMQSettings"."RMQConnect"."VirtualHostName" = jsonConfSetting."Queue"."RMQSettings"."VHost"
                             jsonAppSetting."RMQSettings"."RMQConnect"."QueueName" = jsonConfSetting."Queue"."RMQSettings"."Name"
                             jsonAppSetting."RMQSettings"."RMQConnect"."Endpoints" = jsonConfSetting."Queue"."RMQSettings"."HostName"
-                            jsonAppSetting."RMQSettings"."RMQConnect"."Port" = jsonConfSetting."Queue"."RMQSettings"."Port"
-                            
+                            jsonAppSetting."RMQSettings"."RMQConnect"."Port" = jsonConfSetting."Queue"."RMQSettings"."Port"                            
                         }
                         else
                         {
@@ -554,8 +508,7 @@ def call(Map config = [:]) {
                             jsonAppSetting."Queue"."HostName" = jsonConfSetting."Queue"."RMQSettings"."HostName"
                             jsonAppSetting."Queue"."Port" = jsonConfSetting."Queue"."RMQSettings"."Port"
                             jsonAppSetting."Queue"."MaxRetry" = jsonConfSetting."Queue"."RMQSettings"."MaxRetry"
-                        }
-                        
+                        }                        
                     }
                     else if (jsonConfSetting."Queue"."Provider" == "MNS")
                     {
@@ -579,10 +532,8 @@ def call(Map config = [:]) {
                             jsonAppSetting."AmazonSqsSettings"."Endpoint" = jsonConfSetting."Queue"."AmazonSqsSettings"."Endpoint"
                             jsonAppSetting."AmazonSqsSettings"."AccessKeyId" = jsonConfSetting."Queue"."AmazonSqsSettings"."AccessKeyId"
                             jsonAppSetting."AmazonSqsSettings"."AccessKeySecret" = jsonConfSetting."Queue"."AmazonSqsSettings"."AccessKeySecret"
-                        }
-                        
-                    }
-                    
+                        }                        
+                    }                    
                 }
                 else if("RMQSettings" in jsonAppSetting.keySet())
                 {
@@ -591,8 +542,7 @@ def call(Map config = [:]) {
                     jsonAppSetting."RMQSettings"."RMQConnect"."Password" = jsonConfSetting."Queue"."RMQSettings"."Password"
                     jsonAppSetting."RMQSettings"."RMQConnect"."VirtualHostName" = jsonConfSetting."Queue"."RMQSettings"."VHost"
                     jsonAppSetting."RMQSettings"."RMQConnect"."Port" = jsonConfSetting."Queue"."RMQSettings"."Port"
-                }
-                
+                }                
                 
                 // Mengubah JSON kembali menjadi string
                 data = JsonOutput.toJson(jsonAppSetting)
@@ -618,11 +568,10 @@ def call(Map config = [:]) {
                  targetField = KeyNameSetting.key;
                  if (targetField in jsonConfSetting.keySet())
                  {
-                     jsonAppSetting."$targetField" = jsonConfSetting."$targetField"
-                 
+                     jsonAppSetting."$targetField" = jsonConfSetting."$targetField"                 
                  }
                 }
-
+                
                 // Mengubah JSON kembali menjadi string
                 data = JsonOutput.toJson(jsonAppSetting)
             }
@@ -630,11 +579,9 @@ def call(Map config = [:]) {
             {
 
                 def StringYaml = data
-                def jsonSetting = readFile(file: 'GeneralConfig.json')
-                
+                def jsonSetting = readFile(file: 'GeneralConfig.json')                
                 def yaml = new Yaml()
-                def jsonAppSetting = yaml.load(StringYaml)
-                
+                def jsonAppSetting = yaml.load(StringYaml)                
                 def jsonConfSetting = new JsonSlurper().parseText(jsonSetting)
               
                 // Ubah URL FrontEnd
@@ -664,38 +611,16 @@ def call(Map config = [:]) {
             Map configData = [(config.configMapFileName): data]
             configmap.data = configData
 
-
             sh "rm ./configmap.yaml"
             writeYaml(data: configmap, file: "configmap.yaml")
 
             //sh "type ./deployment.yaml"
             //sh "type ./service.yaml"
             //sh "type ./configmap.yaml"
-            
-            //def deployment2 = new File('./deployment.yaml')
-            //def deployment2 = readYaml(file: 'deployment.yaml')
-            //def datadeployment = deployment2.text
-                
-            //def service2 = new File('./service.yaml')
-            //def service2 = readYaml(file: 'service.yaml')
-            //def dataservice = service2.text
-                
-            //def configmap2 = new File('./configmap.yaml')
-            //def configmap2 = readYaml(file: 'configmap.yaml')
-            //def dataconfigmap = configmap2.text
-            
-            // Gabungkan konten kedua file menjadi satu teks
-            //def merged_data = "${deployment}\n ------- \n${service}\n ------- \n${configmap}"
-
-            // Konversi teks gabungan menjadi objek YAML
-            //def yaml = new Yaml()
-            //def obj = yaml.load(merged_data)
 
             // Simpan objek gabungan ke dalam file baru
             writeYaml(datas: [deployment, service, configmap], file: "deploymentservice.yaml")
-            //def output = new File('deploymentservice.yaml')
-            //yaml.dump(obj, output.newWriter())
-                
+                            
             //sh "type ./deploymentservice.yaml"
             
             }
@@ -747,7 +672,6 @@ def call(Map config = [:]) {
             def data = config.configPath ? readFile(config.configPath): "{}"
             Map configData = [(config.configMapFileName): data]
             configmap.data = configData
-
 
             bat "del configmap.yaml"
             writeYaml(data: configmap, file: "configmap.yaml")
