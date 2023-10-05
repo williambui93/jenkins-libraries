@@ -493,7 +493,17 @@ def call(Map config = [:]) {
                     jsonAppSetting."RMQSettings"."RMQConnect"."Password" = jsonConfSetting."Queue"."RMQSettings"."Password"
                     jsonAppSetting."RMQSettings"."RMQConnect"."VirtualHostName" = jsonConfSetting."Queue"."RMQSettings"."VHost"
                     jsonAppSetting."RMQSettings"."RMQConnect"."Port" = jsonConfSetting."Queue"."RMQSettings"."Port"
-                }                
+                } 
+
+		//Ubah Report Settings
+		if("ReportSettings" in jsonAppSetting.keySet())
+                {
+			jsonAppSetting."ReportSettings"."TemplatePath" = jsonConfSetting."ReportSettings"."TemplatePath"
+			jsonAppSetting."ReportSettings"."LibraryPath" = jsonConfSetting."ReportSettings"."LibraryPath"
+			jsonAppSetting."ReportSettings"."StartingTemplatePath" = jsonConfSetting."ReportSettings"."StartingTemplatePath"
+			jsonAppSetting."ReportSettings"."GeneratingAsyncReportPath" = jsonConfSetting."ReportSettings"."GeneratingAsyncReportPath"
+			jsonAppSetting."ReportSettings"."GeneratingScheduleReportPath" = jsonConfSetting."ReportSettings"."GeneratingScheduleReportPath"
+		}
                 
                 // Mengubah JSON kembali menjadi string
                 data = JsonOutput.toJson(jsonAppSetting)
