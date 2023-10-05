@@ -294,6 +294,32 @@ def call(Map config = [:]) {
                                 jsonAppSetting."ConnectionStrings"."$targetField"."SQLConnSP" = data2
                                 
                             }
+                            else if(itemsSetting.key.contains("TableAdapters"))
+                            {
+
+                                def DBString = itemsSetting.value
+                                
+                                def DBStringSplitData = DBString.split(';')
+                                def keyValuePairs = [:]
+                                
+                                DBStringSplitData.each { pair ->
+                                    def keyValue = pair.split('=')
+                                    def key = keyValue[0].trim()
+                                    def value = keyValue[1].trim()
+                                    keyValuePairs[key] = value
+                                }
+                                
+                                keyValuePairs['Data Source'] = jsonConfSetting."Database"."DataBasePostgreSQL"."Server"
+                                keyValuePairs['user id'] = jsonConfSetting."Database"."DataBasePostgreSQL"."User ID"
+                                keyValuePairs['Password'] = jsonConfSetting."Database"."DataBasePostgreSQL"."Password"
+                                keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBasePostgreSQL"."DatabaseName"."$targetField"
+                                
+                                
+                                def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
+                                
+                                jsonAppSetting."ConnectionStrings"."$targetField"."$itemsSetting.key" = data2
+                                
+                            }
                         }
                      
                     }
@@ -358,6 +384,31 @@ def call(Map config = [:]) {
                                     jsonAppSetting."ConnectionStrings"."$targetField"."SQLConnSP" = data2
                                     
                                 }
+                                else if(itemsSetting.key.contains("TableAdapters"))
+                                {
+                                    def DBString = itemsSetting.value
+                                    
+                                    def DBStringSplitData = DBString.split(';')
+                                    def keyValuePairs = [:]
+                                    
+                                    DBStringSplitData.each { pair ->
+                                        def keyValue = pair.split('=')
+                                        def key = keyValue[0].trim()
+                                        def value = keyValue[1].trim()
+                                        keyValuePairs[key] = value
+                                    }
+                                    
+                                    keyValuePairs['Data Source'] = jsonConfSetting."Database"."DataBaseSSMS"."Server"
+                                    keyValuePairs['user id'] = jsonConfSetting."Database"."DataBaseSSMS"."User ID"
+                                    keyValuePairs['Password'] = jsonConfSetting."Database"."DataBaseSSMS"."Password"
+                                    keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"
+                                    
+                                    
+                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
+                                    
+                                    jsonAppSetting."ConnectionStrings"."$targetField"."$itemsSetting.key" = data2
+                                    
+                                }
                             }
                          
                         }
@@ -417,6 +468,31 @@ def call(Map config = [:]) {
                                     def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
                                     
                                     jsonAppSetting."ConnectionStrings"."$targetField"."SQLConnSP" = data2
+                                    
+                                }
+                                else if(itemsSetting.key.contains("TableAdapters"))
+                                {
+                                    def DBString = itemsSetting.value
+                                    
+                                    def DBStringSplitData = DBString.split(';')
+                                    def keyValuePairs = [:]
+                                    
+                                    DBStringSplitData.each { pair ->
+                                        def keyValue = pair.split('=')
+                                        def key = keyValue[0].trim()
+                                        def value = keyValue[1].trim()
+                                        keyValuePairs[key] = value
+                                    }
+                                    
+                                    keyValuePairs['Data Source'] = jsonConfSetting."Database"."DataBaseSSMS"."Server"
+                                    keyValuePairs['user id'] = jsonConfSetting."Database"."DataBaseSSMS"."User ID"
+                                    keyValuePairs['Password'] = jsonConfSetting."Database"."DataBaseSSMS"."Password"
+                                    keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"
+                                    
+                                    
+                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
+                                    
+                                    jsonAppSetting."ConnectionStrings"."$targetField"."$itemsSetting.key" = data2
                                     
                                 }
                             }
