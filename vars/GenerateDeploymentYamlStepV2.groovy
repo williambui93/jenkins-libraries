@@ -257,7 +257,7 @@ def call(Map config = [:]) {
                                 jsonAppSetting."ConnectionStrings"."$targetField"."DataBasePostgreSQL" = data2
                                 
                             }
-                            else if(itemsSetting.key == "SQLConnSP" || itemsSetting.key.contains("TableAdapters"))
+                            else if(itemsSetting.key == "SQLConnSP")
                             {
                                 def DBString = itemsSetting.value
                                 def DBStringSplitData = DBString.split(';')
@@ -314,7 +314,7 @@ def call(Map config = [:]) {
                                     jsonAppSetting."ConnectionStrings"."$targetField"."DataBaseSSMS" = data2
                                     
                                 }
-                                else if(itemsSetting.key == 'SQLConnSP' || itemsSetting.key.contains("TableAdapters"))
+                                else if(itemsSetting.key == 'SQLConnSP')
                                 {
                                     def DBString = itemsSetting.value                                    
                                     def DBStringSplitData = DBString.split(';')
@@ -367,7 +367,7 @@ def call(Map config = [:]) {
                                     jsonAppSetting."ConnectionStrings"."$targetField"."DataBase" = data2                                    
                                     
                                 }
-                                else if(itemsSetting.key == 'SQLConnSP' || itemsSetting.key.contains("TableAdapters"))
+                                else if(itemsSetting.key == 'SQLConnSP')
                                 {
                                     def DBString = itemsSetting.value                                    
                                     def DBStringSplitData = DBString.split(';')
