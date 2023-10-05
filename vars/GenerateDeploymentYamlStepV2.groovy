@@ -257,7 +257,7 @@ def call(Map config = [:]) {
                                 jsonAppSetting."ConnectionStrings"."$targetField"."DataBasePostgreSQL" = data2
                                 
                             }
-                            else if(itemsSetting.key == "SQLConnSP")
+                            else if(itemsSetting.key == "SQLConnSP" || itemsSetting.key.contains("TableAdapters"))
                             {
                                 def DBString = itemsSetting.value
                                 def DBStringSplitData = DBString.split(';')
@@ -273,33 +273,21 @@ def call(Map config = [:]) {
                                 keyValuePairs['Data Source'] = jsonConfSetting."Database"."DataBasePostgreSQL"."Server"
                                 keyValuePairs['user id'] = jsonConfSetting."Database"."DataBasePostgreSQL"."User ID"
                                 keyValuePairs['Password'] = jsonConfSetting."Database"."DataBasePostgreSQL"."Password"
-                                keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBasePostgreSQL"."DatabaseName"."$targetField"
+
+                                if(itemsSetting.key.contains("TableAdapters"))
+                                {
+                                    keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBasePostgreSQL"."DatabaseName"."$targetField"."$itemsSetting.key"
                                 
-                                def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
-                                jsonAppSetting."ConnectionStrings"."$targetField"."SQLConnSP" = data2
-                                
-                            }
-                            else if(itemsSetting.key.contains("TableAdapters"))
-                            {
-                                def DBString = itemsSetting.value
-                                def DBStringSplitData = DBString.split(';')
-                                def keyValuePairs = [:]
-                                
-                                DBStringSplitData.each { pair ->
-                                    def keyValue = pair.split('=')
-                                    def key = keyValue[0].trim()
-                                    def value = keyValue[1].trim()
-                                    keyValuePairs[key] = value
+                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
+                                    jsonAppSetting."ConnectionStrings"."$targetField"."$itemsSetting.key" = data2
                                 }
-                                
-                                keyValuePairs['Data Source'] = jsonConfSetting."Database"."DataBasePostgreSQL"."Server"
-                                keyValuePairs['user id'] = jsonConfSetting."Database"."DataBasePostgreSQL"."User ID"
-                                keyValuePairs['Password'] = jsonConfSetting."Database"."DataBasePostgreSQL"."Password"
-                                keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBasePostgreSQL"."DatabaseName"."$targetField"."$itemsSetting.key"
-                                
-                                def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
-                                jsonAppSetting."ConnectionStrings"."$targetField"."$itemsSetting.key" = data2
-                                
+                                else
+                                {
+                                    keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBasePostgreSQL"."DatabaseName"."$targetField"
+                                    
+                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
+                                    jsonAppSetting."ConnectionStrings"."$targetField"."SQLConnSP" = data2
+                                }                                
                             }
                         }
                      
@@ -336,7 +324,7 @@ def call(Map config = [:]) {
                                     jsonAppSetting."ConnectionStrings"."$targetField"."DataBaseSSMS" = data2
                                     
                                 }
-                                else if(itemsSetting.key == 'SQLConnSP')
+                                else if(itemsSetting.key == 'SQLConnSP' || itemsSetting.key.contains("TableAdapters"))
                                 {
                                     def DBString = itemsSetting.value                                    
                                     def DBStringSplitData = DBString.split(';')
@@ -352,34 +340,23 @@ def call(Map config = [:]) {
                                     keyValuePairs['Data Source'] = jsonConfSetting."Database"."DataBaseSSMS"."Server"
                                     keyValuePairs['user id'] = jsonConfSetting."Database"."DataBaseSSMS"."User ID"
                                     keyValuePairs['Password'] = jsonConfSetting."Database"."DataBaseSSMS"."Password"
-                                    keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"                                    
+
+                                    if(itemsSetting.key.contains("TableAdapters"))
+                                    {
+                                        keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"."$itemsSetting.key"                                    
                                     
-                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')                                    
-                                    jsonAppSetting."ConnectionStrings"."$targetField"."SQLConnSP" = data2
-                                    
-                                }
-                                else if(itemsSetting.key.contains("TableAdapters"))
-                                {
-                                    def DBString = itemsSetting.value                                    
-                                    def DBStringSplitData = DBString.split(';')
-                                    def keyValuePairs = [:]
-                                    
-                                    DBStringSplitData.each { pair ->
-                                        def keyValue = pair.split('=')
-                                        def key = keyValue[0].trim()
-                                        def value = keyValue[1].trim()
-                                        keyValuePairs[key] = value
+                                        def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')                                    
+                                        jsonAppSetting."ConnectionStrings"."$targetField"."$itemsSetting.key" = data2
                                     }
+                                    else
+                                    {
+                                        keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"                                    
                                     
-                                    keyValuePairs['Data Source'] = jsonConfSetting."Database"."DataBaseSSMS"."Server"
-                                    keyValuePairs['user id'] = jsonConfSetting."Database"."DataBaseSSMS"."User ID"
-                                    keyValuePairs['Password'] = jsonConfSetting."Database"."DataBaseSSMS"."Password"
-                                    keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"."$itemsSetting.key"                                    
+                                        def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')                                    
+                                        jsonAppSetting."ConnectionStrings"."$targetField"."SQLConnSP" = data2
+                                    }                                     
                                     
-                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')                                    
-                                    jsonAppSetting."ConnectionStrings"."$targetField"."$itemsSetting.key" = data2
-                                    
-                                }
+                                }                                
                             }                         
                         }
                      }
@@ -411,7 +388,7 @@ def call(Map config = [:]) {
                                     jsonAppSetting."ConnectionStrings"."$targetField"."DataBase" = data2                                    
                                     
                                 }
-                                else if(itemsSetting.key == 'SQLConnSP')
+                                else if(itemsSetting.key == 'SQLConnSP' || itemsSetting.key.contains("TableAdapters"))
                                 {
                                     def DBString = itemsSetting.value                                    
                                     def DBStringSplitData = DBString.split(';')
@@ -427,33 +404,21 @@ def call(Map config = [:]) {
                                     keyValuePairs['Data Source'] = jsonConfSetting."Database"."DataBaseSSMS"."Server"
                                     keyValuePairs['user id'] = jsonConfSetting."Database"."DataBaseSSMS"."User ID"
                                     keyValuePairs['Password'] = jsonConfSetting."Database"."DataBaseSSMS"."Password"
-                                    keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"                                    
+
+                                    if(itemsSetting.key.contains("TableAdapters"))
+                                    {
+                                        keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"."$itemsSetting.key"                                    
                                     
-                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')                                    
-                                    jsonAppSetting."ConnectionStrings"."$targetField"."SQLConnSP" = data2
-                                    
-                                }
-                                else if(itemsSetting.key.contains("TableAdapters"))
-                                {
-                                    def DBString = itemsSetting.value                                    
-                                    def DBStringSplitData = DBString.split(';')
-                                    def keyValuePairs = [:]
-                                    
-                                    DBStringSplitData.each { pair ->
-                                        def keyValue = pair.split('=')
-                                        def key = keyValue[0].trim()
-                                        def value = keyValue[1].trim()
-                                        keyValuePairs[key] = value
+                                        def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')                                    
+                                        jsonAppSetting."ConnectionStrings"."$targetField"."$itemsSetting.key" = data2
                                     }
+                                    else
+                                    {
+                                        keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"                                    
                                     
-                                    keyValuePairs['Data Source'] = jsonConfSetting."Database"."DataBaseSSMS"."Server"
-                                    keyValuePairs['user id'] = jsonConfSetting."Database"."DataBaseSSMS"."User ID"
-                                    keyValuePairs['Password'] = jsonConfSetting."Database"."DataBaseSSMS"."Password"
-                                    keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"."$itemsSetting.key"                                    
-                                    
-                                    def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')                                    
-                                    jsonAppSetting."ConnectionStrings"."$targetField"."$itemsSetting.key" = data2
-                                    
+                                        def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')                                    
+                                        jsonAppSetting."ConnectionStrings"."$targetField"."SQLConnSP" = data2
+                                    }   
                                 }
                             }
                         }
@@ -477,7 +442,6 @@ def call(Map config = [:]) {
                     }                     
                  }
                 }
-                
                 
                 //Ubah Connection String Redis
                 jsonAppSetting."RedisConfig"."ConnStringRedis" = jsonConfSetting."Redis"."ConnStringRedis"
