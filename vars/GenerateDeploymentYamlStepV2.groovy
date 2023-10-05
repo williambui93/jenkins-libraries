@@ -452,7 +452,7 @@ def call(Map config = [:]) {
                 jsonAppSetting."RedisConfig"."ConnStringRedis" = jsonConfSetting."Redis"."ConnStringRedis"
 
                 //Ubah Connection Queue
-                if("Queue" in jsonConfSetting.keySet())
+                if("Queue" in jsonAppSetting.keySet())
                 {
                     if (jsonConfSetting."Queue"."Provider" == "RMQ")
                     {
@@ -508,7 +508,7 @@ def call(Map config = [:]) {
                     }
                     
                 }
-                else if("RMQSettings" in jsonConfSetting.keySet())
+                else if("RMQSettings" in jsonAppSetting.keySet())
                 {
                     jsonAppSetting."RMQSettings"."RMQConnect"."Endpoints" = jsonConfSetting."Queue"."RMQSettings"."HostName"
                     jsonAppSetting."RMQSettings"."RMQConnect"."Username" = jsonConfSetting."Queue"."RMQSettings"."UserName"
