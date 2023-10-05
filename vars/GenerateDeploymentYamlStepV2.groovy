@@ -93,16 +93,7 @@ def call(Map config = [:]) {
                     if(jsonConfSetting."Logging"."DataBaseType" == "POSTGRESQL")
                     {
                         def DBString = jsonAppSetting."ConnectionStrings"."Logging"."DataBasePostgreSQL"
-                            
-                        def DBStringSplitData = DBString.split(';')
-                        def keyValuePairs = [:]
-                        
-                        DBStringSplitData.each { pair ->
-                            def keyValue = pair.split('=')
-                            def key = keyValue[0].trim()
-                            def value = keyValue[1].trim()
-                            keyValuePairs[key] = value
-                        }
+			def keyValuePairs = parseKeyValuePairs(DBString)
                         
                         keyValuePairs['Host'] = jsonConfSetting."Logging"."DataBasePostgreSQL"."Host"
                         keyValuePairs['User ID'] = jsonConfSetting."Logging"."DataBasePostgreSQL"."User ID"
@@ -118,16 +109,7 @@ def call(Map config = [:]) {
                     else if(jsonConfSetting."Logging"."DataBaseType" == "SSMS")
                     {
                         def DBString = jsonAppSetting."ConnectionStrings"."Logging"."DataBaseSSMS"
-                            
-                        def DBStringSplitData = DBString.split(';')
-                        def keyValuePairs = [:]
-                        
-                        DBStringSplitData.each { pair ->
-                            def keyValue = pair.split('=')
-                            def key = keyValue[0].trim()
-                            def value = keyValue[1].trim()
-                            keyValuePairs[key] = value
-                        }
+			def keyValuePairs = parseKeyValuePairs(DBString)
                         
                         keyValuePairs['Server'] = jsonConfSetting."Logging"."DataBasePostgreSQL"."Server"
                         keyValuePairs['User ID'] = jsonConfSetting."Logging"."DataBasePostgreSQL"."User ID"
@@ -149,17 +131,8 @@ def call(Map config = [:]) {
                         if('DataBasePostgreSQL' in jsonAppSetting."LicenseConfig")
                         {
                             def DBString = jsonAppSetting."LicenseConfig"."DataBasePostgreSQL"
-                                
-                            def DBStringSplitData = DBString.split(';')
-                            def keyValuePairs = [:]
-                            
-                            DBStringSplitData.each { pair ->
-                                def keyValue = pair.split('=')
-                                def key = keyValue[0].trim()
-                                def value = keyValue[1].trim()
-                                keyValuePairs[key] = value
-                            }
-                            
+			    def keyValuePairs = parseKeyValuePairs(DBString)
+                                                        
                             keyValuePairs['Host'] = jsonConfSetting."LicenseConfig"."DataBasePostgreSQL"."Host"
                             keyValuePairs['User ID'] = jsonConfSetting."LicenseConfig"."DataBasePostgreSQL"."User ID"
                             keyValuePairs['Password'] = jsonConfSetting."LicenseConfig"."DataBasePostgreSQL"."Password"
@@ -178,16 +151,7 @@ def call(Map config = [:]) {
                         if('DataBaseSSMS' in jsonAppSetting."LicenseConfig")
                         {
                             def DBString = jsonAppSetting."LicenseConfig"."DataBaseSSMS"
-                                
-                            def DBStringSplitData = DBString.split(';')
-                            def keyValuePairs = [:]
-                            
-                            DBStringSplitData.each { pair ->
-                                def keyValue = pair.split('=')
-                                def key = keyValue[0].trim()
-                                def value = keyValue[1].trim()
-                                keyValuePairs[key] = value
-                            }
+			    def keyValuePairs = parseKeyValuePairs(DBString)
                             
                             keyValuePairs['Server'] = jsonConfSetting."LicenseConfig"."DataBaseSSMS"."Server"
                             keyValuePairs['User ID'] = jsonConfSetting."LicenseConfig"."DataBaseSSMS"."User ID"
@@ -202,15 +166,7 @@ def call(Map config = [:]) {
                         else
                         {
                             def DBString = jsonAppSetting."LicenseConfig"."DataBase"
-                            def DBStringSplitData = DBString.split(';')
-                            def keyValuePairs = [:]
-                            
-                            DBStringSplitData.each { pair ->
-                                def keyValue = pair.split('=')
-                                def key = keyValue[0].trim()
-                                def value = keyValue[1].trim()
-                                keyValuePairs[key] = value
-                            }
+			    def keyValuePairs = parseKeyValuePairs(DBString)
                             
                             keyValuePairs['Server'] = jsonConfSetting."LicenseConfig"."DataBaseSSMS"."Server"
                             keyValuePairs['User ID'] = jsonConfSetting."LicenseConfig"."DataBaseSSMS"."User ID"
@@ -234,16 +190,8 @@ def call(Map config = [:]) {
 				for (itemsSetting in jsonAppSetting."ConnectionStrings"."$targetField") {
 					if (itemsSetting.key == "DataBasePostgreSQL") {
 						def DBString = itemsSetting.value
-						def DBStringSplitData = DBString.split(';')
-						def keyValuePairs = [:]
-						
-						DBStringSplitData.each { pair ->
-							def keyValue = pair.split('=')
-							def key = keyValue[0].trim()
-							def value = keyValue[1].trim()
-							keyValuePairs[key] = value
-						}
-						
+						def keyValuePairs = parseKeyValuePairs(DBString)
+												
 						keyValuePairs['Host'] = postgresConfig."Host"
 						keyValuePairs['User ID'] = postgresConfig."User ID"
 						keyValuePairs['Port'] = postgresConfig."Port"
@@ -254,16 +202,8 @@ def call(Map config = [:]) {
 						jsonAppSetting."ConnectionStrings"."$targetField"."DataBasePostgreSQL" = data2
 					} else if (itemsSetting.key == "SQLConnSP" || itemsSetting.key.contains("TableAdapters")) {
 						def DBString = itemsSetting.value
-						def DBStringSplitData = DBString.split(';')
-						def keyValuePairs = [:]
-						
-						DBStringSplitData.each { pair ->
-							def keyValue = pair.split('=')
-							def key = keyValue[0].trim()
-							def value = keyValue[1].trim()
-							keyValuePairs[key] = value
-						}
-						
+						def keyValuePairs = parseKeyValuePairs(DBString)
+												
 						keyValuePairs['Data Source'] = postgresConfig."Server"
 						keyValuePairs['user id'] = postgresConfig."User ID"
 						keyValuePairs['Password'] = postgresConfig."Password"
@@ -295,16 +235,8 @@ def call(Map config = [:]) {
                             {
                                 if(itemsSetting.key == 'DataBaseSSMS')
                                 {
-                                    def DBString = itemsSetting.value
-                                    def DBStringSplitData = DBString.split(';')
-                                    def keyValuePairs = [:]
-                                    
-                                    DBStringSplitData.each { pair ->
-                                        def keyValue = pair.split('=')
-                                        def key = keyValue[0].trim()
-                                        def value = keyValue[1].trim()
-                                        keyValuePairs[key] = value
-                                    }
+				    def DBString = itemsSetting.value
+				    def keyValuePairs = parseKeyValuePairs(DBString)
                                     
                                     keyValuePairs['Server'] = jsonConfSetting."Database"."DataBaseSSMS"."Server"
                                     keyValuePairs['User ID'] = jsonConfSetting."Database"."DataBaseSSMS"."User ID"
@@ -317,16 +249,8 @@ def call(Map config = [:]) {
                                 }
                                 else if(itemsSetting.key == 'SQLConnSP' || itemsSetting.key.contains("TableAdapters"))
                                 {
-	                                def DBString = itemsSetting.value                                    
-	                                def DBStringSplitData = DBString.split(';')
-	                                def keyValuePairs = [:]
-	                                    
-	                                DBStringSplitData.each { pair ->
-	                                        def keyValue = pair.split('=')
-	                                        def key = keyValue[0].trim()
-	                                        def value = keyValue[1].trim()
-	                                	keyValuePairs[key] = value
-	                                }
+	                                def DBString = itemsSetting.value
+					def keyValuePairs = parseKeyValuePairs(DBString)
 	                                    
 	                                keyValuePairs['Data Source'] = jsonConfSetting."Database"."DataBaseSSMS"."Server"
 	                                keyValuePairs['user id'] = jsonConfSetting."Database"."DataBaseSSMS"."User ID"
@@ -357,16 +281,8 @@ def call(Map config = [:]) {
                             {
                                 if(itemsSetting.key == 'DataBase')
                                 {
-                                    def DBString = itemsSetting.value                                    
-                                    def DBStringSplitData = DBString.split(';')
-                                    def keyValuePairs = [:]
-                                    
-                                    DBStringSplitData.each { pair ->
-                                        def keyValue = pair.split('=')
-                                        def key = keyValue[0].trim()
-                                        def value = keyValue[1].trim()
-                                        keyValuePairs[key] = value
-                                    }
+                                    def DBString = itemsSetting.value
+				    def keyValuePairs = parseKeyValuePairs(DBString)
                                     
                                     keyValuePairs['Server'] = jsonConfSetting."Database"."DataBaseSSMS"."Server"
                                     keyValuePairs['User ID'] = jsonConfSetting."Database"."DataBaseSSMS"."User ID"
@@ -379,16 +295,8 @@ def call(Map config = [:]) {
                                 }
                                 else if(itemsSetting.key == 'SQLConnSP' || itemsSetting.key.contains("TableAdapters"))
                                 {
-	                                def DBString = itemsSetting.value                                    
-	                                def DBStringSplitData = DBString.split(';')
-	                                def keyValuePairs = [:]
-	                                    
-	                                DBStringSplitData.each { pair ->
-	                                        def keyValue = pair.split('=')
-	                                        def key = keyValue[0].trim()
-	                                        def value = keyValue[1].trim()
-	                                        keyValuePairs[key] = value
-	                                }
+	                                def DBString = itemsSetting.value
+					def keyValuePairs = parseKeyValuePairs(DBString)
 	                                    
 	                                keyValuePairs['Data Source'] = jsonConfSetting."Database"."DataBaseSSMS"."Server"
 	                                keyValuePairs['user id'] = jsonConfSetting."Database"."DataBaseSSMS"."User ID"
@@ -642,4 +550,19 @@ def call(Map config = [:]) {
             bat "type configmap.yaml"
            }
         }
+}
+
+// Fungsi untuk memecah string menjadi pasangan kunci-nilai
+def parseKeyValuePairs(DBString) {
+    def DBStringSplitData = DBString.split(';')
+    def keyValuePairs = [:]
+
+    DBStringSplitData.each { pair ->
+        def keyValue = pair.split('=')
+        def key = keyValue[0].trim()
+        def value = keyValue[1].trim()
+        keyValuePairs[key] = value
+    }
+
+    return keyValuePairs
 }
