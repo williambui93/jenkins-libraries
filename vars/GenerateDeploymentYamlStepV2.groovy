@@ -312,7 +312,7 @@ def call(Map config = [:]) {
                                 keyValuePairs['Data Source'] = jsonConfSetting."Database"."DataBasePostgreSQL"."Server"
                                 keyValuePairs['user id'] = jsonConfSetting."Database"."DataBasePostgreSQL"."User ID"
                                 keyValuePairs['Password'] = jsonConfSetting."Database"."DataBasePostgreSQL"."Password"
-                                keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBasePostgreSQL"."DatabaseName"."$targetField"
+                                keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBasePostgreSQL"."DatabaseName"."$targetField"."$itemsSetting.key"
                                 
                                 
                                 def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
@@ -401,7 +401,7 @@ def call(Map config = [:]) {
                                     keyValuePairs['Data Source'] = jsonConfSetting."Database"."DataBaseSSMS"."Server"
                                     keyValuePairs['user id'] = jsonConfSetting."Database"."DataBaseSSMS"."User ID"
                                     keyValuePairs['Password'] = jsonConfSetting."Database"."DataBaseSSMS"."Password"
-                                    keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"
+                                    keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"."$itemsSetting.key"
                                     
                                     
                                     def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
@@ -487,7 +487,7 @@ def call(Map config = [:]) {
                                     keyValuePairs['Data Source'] = jsonConfSetting."Database"."DataBaseSSMS"."Server"
                                     keyValuePairs['user id'] = jsonConfSetting."Database"."DataBaseSSMS"."User ID"
                                     keyValuePairs['Password'] = jsonConfSetting."Database"."DataBaseSSMS"."Password"
-                                    keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"
+                                    keyValuePairs['Initial Catalog'] = jsonConfSetting."Database"."DataBaseSSMS"."DatabaseName"."$targetField"."$itemsSetting.key"
                                     
                                     
                                     def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
