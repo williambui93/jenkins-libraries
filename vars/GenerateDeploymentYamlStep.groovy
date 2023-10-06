@@ -76,9 +76,9 @@ def call(Map config = [:]) {
             sh "rm ./configmap.yaml"
             writeYaml(data: configmap, file: "configmap.yaml")
 
-            sh "type ./deployment.yaml"
-            sh "type ./service.yaml"
-            sh "type ./configmap.yaml"
+            //sh "type ./deployment.yaml"
+            //sh "type ./service.yaml"
+            //sh "type ./configmap.yaml"
             
             //def deployment2 = new File('./deployment.yaml')
             //def deployment2 = readYaml(file: 'deployment.yaml')
@@ -104,7 +104,7 @@ def call(Map config = [:]) {
             //def output = new File('deploymentservice.yaml')
             //yaml.dump(obj, output.newWriter())
                 
-            sh "type ./deploymentservice.yaml"
+            //sh "type ./deploymentservice.yaml"
             
             }
         } else {
