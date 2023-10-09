@@ -357,7 +357,8 @@ def call(Map config = [:]) {
                             jsonAppSetting."RMQSettings"."RMQConnect"."Endpoints" = jsonConfSetting."Queue"."RMQSettings"."HostName"
                             jsonAppSetting."RMQSettings"."RMQConnect"."Port" = jsonConfSetting."Queue"."RMQSettings"."Port"                            
                         }
-                        else
+			    
+                        if("HostName" in jsonAppSetting."Queue".keySet())
                         {
                             jsonAppSetting."Queue"."Provider" = jsonConfSetting."Queue"."Provider"
                             jsonAppSetting."Queue"."IsUseIntegration" = jsonConfSetting."Queue"."RMQSettings"."IsUseIntegration"
