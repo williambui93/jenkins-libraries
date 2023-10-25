@@ -200,7 +200,7 @@ def call(Map config = [:]) {
 						
 						def data2 = keyValuePairs.collect { key, value -> "$key=$value" }.join(';')
 						jsonAppSetting."ConnectionStrings"."$targetField"."DataBasePostgreSQL" = data2
-					} else if (itemsSetting.key == "SQLConnSP" || itemsSetting.key.contains("TableAdapters")) {
+					} else if (itemsSetting.key == "SQLConnSPPostgreSQL" || itemsSetting.key == "POSTGRESQLConnSP" || itemsSetting.key.contains("TableAdapters")) {
 						def DBString = itemsSetting.value
 						def keyValuePairs = parseKeyValuePairs(DBString)
 												
@@ -219,7 +219,7 @@ def call(Map config = [:]) {
 						if (itemsSetting.key.contains("TableAdapters")) {
 							jsonAppSetting."ConnectionStrings"."$targetField"."$itemsSetting.key" = data2
 						} else {
-							jsonAppSetting."ConnectionStrings"."$targetField"."SQLConnSP" = data2
+							jsonAppSetting."ConnectionStrings"."$targetField"."$itemsSetting.key" = data2
 						}
 					}
 				}
@@ -247,7 +247,7 @@ def call(Map config = [:]) {
                                     jsonAppSetting."ConnectionStrings"."$targetField"."DataBaseSSMS" = data2
                                     
                                 }
-                                else if(itemsSetting.key == 'SQLConnSP' || itemsSetting.key.contains("TableAdapters"))
+                                else if(itemsSetting.key == 'SQLConnSPSSMS' || itemsSetting.key.contains("TableAdapters"))
                                 {
 	                                def DBString = itemsSetting.value
 					def keyValuePairs = parseKeyValuePairs(DBString)
@@ -267,7 +267,7 @@ def call(Map config = [:]) {
 					if (itemsSetting.key.contains("TableAdapters")) {
 						jsonAppSetting."ConnectionStrings"."$targetField"."$itemsSetting.key" = data2
 					} else {
-						jsonAppSetting."ConnectionStrings"."$targetField"."SQLConnSP" = data2
+						jsonAppSetting."ConnectionStrings"."$targetField"."SQLConnSPSSMS" = data2
 					}  
                                 }                                
                             }                         
