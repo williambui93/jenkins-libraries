@@ -407,6 +407,7 @@ def call(Map config = [:]) {
 		//Ubah Report Settings
 		if("ReportSettings" in jsonAppSetting.keySet())
                 {
+			jsonAppSetting."ReportSettings"."ProviderType" = jsonConfSetting."ReportSettings"."ProviderType"
 			jsonAppSetting."ReportSettings"."TemplatePath" = jsonConfSetting."ReportSettings"."TemplatePath"
 			jsonAppSetting."ReportSettings"."LibraryPath" = jsonConfSetting."ReportSettings"."LibraryPath"
 			jsonAppSetting."ReportSettings"."StartingTemplatePath" = jsonConfSetting."ReportSettings"."StartingTemplatePath"
